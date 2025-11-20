@@ -23,6 +23,7 @@ Ce projet est conçu pour :
 * API backend pour gérer les musiques, playlists, utilisateurs
 * Stockage des fichiers audio dans le Cloud
 * Interface claire et ergonomique
+<img width="923" height="683" alt="image" src="https://github.com/user-attachments/assets/a3a542ed-c805-4cca-b2e0-76fffe38accb" />
 
 ---
 

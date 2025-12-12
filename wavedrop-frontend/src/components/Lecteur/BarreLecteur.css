@@ -1,0 +1,239 @@
+.barre-lecteur {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--gradient-ocean);
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 -4px 20px rgba(10, 36, 99, 0.3);
+  z-index: 1000;
+  backdrop-filter: blur(20px);
+}
+
+.lecteur-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Informations de la musique */
+.lecteur-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lecteur-cover {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: var(--shadow-bubble);
+}
+
+.lecteur-cover-placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  background: rgba(125, 211, 252, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bubble-cyan);
+}
+
+.lecteur-details h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.lecteur-details p {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* Contrôles de lecture */
+.lecteur-controles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.controles-boutons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-controle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: var(--transition-wave);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.btn-play-pause {
+  width: 50px;
+  height: 50px;
+  background: white;
+  color: var(--ocean-deep);
+  border-color: white;
+}
+
+.btn-controle:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-bubble);
+}
+
+.btn-play-pause:hover {
+  background: var(--bubble-cyan);
+  color: white;
+}
+
+/* Barre de progression */
+.lecteur-progression {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.temps-actuel,
+.temps-total {
+  font-size: 0.85rem;
+  min-width: 40px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.slider-progression {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: var(--transition-wave);
+}
+
+.slider-progression::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: var(--transition-wave);
+}
+
+.slider-progression::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.slider-progression::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Actions et volume */
+.lecteur-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-action {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: var(--transition-wave);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.btn-action:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-bubble);
+}
+
+.volume-controle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.slider-volume {
+  width: 100px;
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+.slider-volume::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider-volume::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  border: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lecteur-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .lecteur-info {
+    justify-content: center;
+  }
+
+  .lecteur-actions {
+    justify-content: center;
+  }
+}

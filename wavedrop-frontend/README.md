@@ -1,93 +1,116 @@
-# 🎵 Wavedrop - Frontend
+🎵 Wavedrop – Frontend
+Wavedrop est une application web de streaming musical permettant d’écouter des morceaux, gérer des playlists et télécharger des musiques via une interface moderne et responsive.
 
-Application web de streaming musical avec gestion de playlists.
-
-## 🚀 Installation
-
-```bash
-# Installer les dépendances
+🚀 Installation
+1. Cloner le dépôt
+bash
+git clone https://github.com/21KEBY/Wavedrop.git
+cd Wavedrop/wavedrop-frontend
+2. Installer les dépendances
+bash
 npm install
-
-# Configurer l'environnement
+# ou
+yarn install
+3. Configurer l’environnement
+bash
 cp .env.example .env
-# Modifier .env avec l'URL de votre API backend
-```
+Dans le fichier .env, définir l’URL de l’API backend :
 
-## 💻 Développement
+text
+REACT_APP_API_URL=http://localhost:5000/api
+Adapter cette valeur si ton backend tourne sur une autre URL ou un autre port.​
 
-```bash
-# Lancer l'application en mode développement
+📋 Prérequis
+Node.js 14 ou supérieur installé sur la machine
+
+npm ou yarn
+
+API backend Wavedrop démarrée (par défaut sur http://localhost:5000) exposant les routes REST décrites ci‑dessous​
+
+💻 Lancement en développement
+Pour démarrer l’application frontend en mode développement :
+
+bash
 npm start
-```
+# ou
+yarn start
+L’application sera accessible sur http://localhost:3000. Toute modification du code dans src/ déclenche un rechargement automatique de la page.
 
-L'application sera accessible sur `http://localhost:3000`
-
-## 📋 Prérequis
-
-- Node.js 14+
-- npm ou yarn
-- Backend API démarré sur `http://localhost:5000`
-
-## 🏗️ Structure du projet
-
-```
+🏗️ Structure du projet
+text
 src/
-├── components/      # Composants réutilisables
-│   ├── Auth/       # Connexion, Inscription
-│   ├── Lecteur/    # Lecteur audio
-│   ├── Musiques/   # Liste et cartes de musiques
-│   ├── Navigation/ # Barre de navigation
-│   └── Playlists/  # Gestion des playlists
-├── context/        # Contextes React (Auth, Lecteur)
-├── hooks/          # Hooks personnalisés
-├── pages/          # Pages de l'application
-├── services/       # Services API
-└── styles/         # Styles CSS
-```
+├── components/       # Composants réutilisables de l'interface
+│   ├── Auth/         # Formulaires de connexion / inscription
+│   ├── Lecteur/      # Lecteur audio (play/pause, suivant, etc.)
+│   ├── Musiques/     # Liste, cartes et détails de musiques
+│   ├── Navigation/   # Barre de navigation et menus
+│   └── Playlists/    # Création et gestion des playlists
+├── context/          # Contextes React (authentification, lecteur audio)
+├── hooks/            # Hooks personnalisés (ex : gestion de l'état du player)
+├── pages/            # Pages principales (Accueil, Playlists, Profil, etc.)
+├── services/         # Appels à l’API backend (auth, tracks, playlists)
+└── styles/           # Styles globaux et composants stylés
+Cette structure sépare clairement les responsabilités : logique métier côté services, affichage côté components/pages, et état global via les contextes.​
 
-## 🔧 Configuration
+🔧 Configuration
+Variables d’environnement
+REACT_APP_API_URL : URL de base de l’API backend (par défaut http://localhost:5000/api)
 
-### Variables d'environnement
+Veiller à redémarrer le serveur de développement après toute modification des variables d’environnement.
 
-- `REACT_APP_API_URL` : URL de l'API backend (défaut: `http://localhost:5000/api`)
+📡 API backend attendue
+Le frontend Wavedrop consomme une API REST qui doit fournir au minimum les endpoints suivants :
 
-## 📡 API Backend requise
+Authentification
+POST /auth/register – Inscription d’un nouvel utilisateur
 
-Le backend doit fournir les endpoints suivants :
+POST /auth/login – Connexion et récupération du token d’authentification
 
-### Authentification
-- `POST /auth/register` - Inscription
-- `POST /auth/login` - Connexion
-- `GET /auth/me` - Utilisateur connecté
+GET /auth/me – Récupération des informations de l’utilisateur connecté
 
-### Musiques
-- `GET /tracks` - Liste des musiques
-- `GET /tracks/:id` - Détail d'une musique
-- `GET /tracks?search=query` - Recherche
+Musiques
+GET /tracks – Liste de toutes les musiques
 
-### Playlists
-- `GET /playlists` - Liste des playlists
-- `POST /playlists` - Créer une playlist
-- `POST /playlists/:id/add` - Ajouter une musique
-- `DELETE /playlists/:id/remove/:trackId` - Retirer une musique
+GET /tracks/:id – Détail d’une musique
 
-## 🎨 Fonctionnalités
+GET /tracks?search=query – Recherche par titre, artiste, etc.
 
-✅ Authentification (Connexion/Inscription)  
-✅ Lecture de musiques avec contrôles  
-✅ Recherche de musiques  
-✅ Gestion de playlists  
-✅ Téléchargement de musiques  
-✅ Lecteur persistant  
-✅ Interface responsive  
+Playlists
+GET /playlists – Liste des playlists de l’utilisateur
 
-## 📦 Build
+POST /playlists – Création d’une nouvelle playlist
 
-```bash
-# Créer une version de production
+POST /playlists/:id/add – Ajout d’une musique à une playlist
+
+DELETE /playlists/:id/remove/:trackId – Suppression d’une musique d’une playlist
+
+Les services frontend (src/services/) utilisent ces routes pour toutes les actions d’authentification, de lecture et de gestion de playlists.​
+
+🎨 Fonctionnalités du frontend
+Authentification (inscription, connexion, gestion de l’utilisateur courant)
+
+Exploration et lecture de musiques avec contrôles (play/pause, suivant, précédent)
+
+Recherche de musiques via barre de recherche
+
+Création et gestion de playlists (ajout/retrait de morceaux)
+
+Téléchargement de musiques depuis l’interface
+
+Lecteur audio persistant entre les pages
+
+Interface responsive adaptée aux écrans desktop et mobiles​
+
+📦 Build et déploiement
+Pour générer une version optimisée pour la production :
+
+bash
 npm run build
-```
+# ou
+yarn build
+Un dossier build/ sera créé avec les fichiers statiques prêts à être servis par un serveur web (Nginx, service de hosting statique, etc.).​
 
-## 👥 Auteurs
+👥 Auteurs
+Projet réalisé dans le cadre du cours Cloud Computing – ISEN 2025/2026.
+Frontend développé par l’équipe Wavedrop (promotion 2025/2026).
 
-Projet réalisé dans le cadre du cours Cloud Computing - ISEN 2025/2026

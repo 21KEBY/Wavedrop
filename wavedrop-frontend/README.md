@@ -46,17 +46,17 @@ L’application sera accessible sur `http://localhost:3000`. Toute modification 
 ## 🏗️ Structure du projet
 
 src/
-├── components/ # Composants réutilisables de l'interface
-│ ├── Auth/ # Formulaires de connexion / inscription
-│ ├── Lecteur/ # Lecteur audio (play/pause, suivant, etc.)
-│ ├── Musiques/ # Liste, cartes et détails de musiques
-│ ├── Navigation/ # Barre de navigation et menus
-│ └── Playlists/ # Création et gestion des playlists
-├── context/ # Contextes React (authentification, lecteur audio)
-├── hooks/ # Hooks personnalisés (ex : gestion de l'état du player)
-├── pages/ # Pages principales (Accueil, Playlists, Profil, etc.)
-├── services/ # Appels à l’API backend (auth, tracks, playlists)
-└── styles/ # Styles globaux et composants stylés
+components/ # Composants réutilisables de l'interface
+  Auth/ # Formulaires de connexion / inscription
+  Lecteur/ # Lecteur audio (play/pause, suivant, etc.)
+  Musiques/ # Liste, cartes et détails de musiques
+  Navigation/ # Barre de navigation et menus
+  Playlists/ # Création et gestion des playlists
+context/ # Contextes React (authentification, lecteur audio)
+hooks/ # Hooks personnalisés (ex : gestion de l'état du player)
+pages/ # Pages principales (Accueil, Playlists, Profil, etc.)
+services/ # Appels à l’API backend (auth, tracks, playlists)
+styles/ # Styles globaux et composants stylés
 
 
 Cette structure sépare clairement les responsabilités : logique métier côté services, affichage côté components/pages, et état global via les contextes.

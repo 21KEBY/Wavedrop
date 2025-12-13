@@ -45,18 +45,8 @@ L’application sera accessible sur `http://localhost:3000`. Toute modification 
 
 ## 🏗️ Structure du projet
 
-src/
-components/ # Composants réutilisables de l'interface
-  Auth/ # Formulaires de connexion / inscription
-  Lecteur/ # Lecteur audio (play/pause, suivant, etc.)
-  Musiques/ # Liste, cartes et détails de musiques
-  Navigation/ # Barre de navigation et menus
-  Playlists/ # Création et gestion des playlists
-context/ # Contextes React (authentification, lecteur audio)
-hooks/ # Hooks personnalisés (ex : gestion de l'état du player)
-pages/ # Pages principales (Accueil, Playlists, Profil, etc.)
-services/ # Appels à l’API backend (auth, tracks, playlists)
-styles/ # Styles globaux et composants stylés
+<img width="683" height="397" alt="image" src="https://github.com/user-attachments/assets/fe302a02-1db6-4152-8732-f43cb9787768" />
+
 
 
 Cette structure sépare clairement les responsabilités : logique métier côté services, affichage côté components/pages, et état global via les contextes.

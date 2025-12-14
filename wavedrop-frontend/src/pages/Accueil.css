@@ -1,0 +1,115 @@
+.accueil-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, var(--foam-white), white);
+  padding-bottom: 120px; /* Espace pour le lecteur en bas */
+}
+
+.accueil-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.accueil-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.accueil-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+  background: var(--gradient-wave);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
+
+.accueil-header p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--ocean-medium);
+}
+
+.accueil-recherche {
+  margin-bottom: 2rem;
+}
+
+.recherche-container {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.recherche-icon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ocean-light);
+}
+
+.recherche-input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3.5rem;
+  border: 2px solid var(--wave-blue);
+  border-radius: 50px;
+  font-size: 1rem;
+  transition: var(--transition-wave);
+  background: white;
+}
+
+.recherche-input:focus {
+  outline: none;
+  border-color: var(--ocean-medium);
+  box-shadow: var(--shadow-wave);
+}
+
+.accueil-content {
+  margin-top: 2rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(62, 146, 204, 0.2);
+}
+
+.section-header h2 {
+  margin: 0;
+  color: var(--ocean-deep);
+  font-size: 1.5rem;
+}
+
+.musiques-count {
+  color: var(--ocean-light);
+  font-size: 0.9rem;
+  background: rgba(62, 146, 204, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .accueil-container {
+    padding: 1rem;
+  }
+
+  .accueil-header h1 {
+    font-size: 2rem;
+  }
+
+  .accueil-header p {
+    font-size: 1rem;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

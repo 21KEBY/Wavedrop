@@ -1,0 +1,117 @@
+.carte-musicale {
+  background: white;
+  border-radius: 16px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--shadow-bubble);
+  transition: var(--transition-wave);
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.carte-musicale:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-wave);
+  border-color: var(--wave-blue);
+}
+
+.carte-musicale.en-lecture {
+  background: linear-gradient(135deg, rgba(62, 146, 204, 0.1) 0%, rgba(90, 183, 219, 0.1) 100%);
+  border: 2px solid var(--wave-blue);
+}
+
+.carte-cover {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.carte-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cover-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-wave);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.btn-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(10, 36, 99, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  opacity: 0;
+  transition: var(--transition-wave);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.carte-cover:hover .btn-play {
+  opacity: 1;
+}
+
+.carte-info {
+  flex: 1;
+}
+
+.carte-titre {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: var(--ocean-deep);
+  font-weight: 600;
+}
+
+.carte-artiste {
+  margin: 0 0 0.25rem 0;
+  color: var(--ocean-medium);
+  font-size: 0.9rem;
+}
+
+.carte-duree {
+  margin: 0;
+  color: var(--ocean-light);
+  font-size: 0.85rem;
+}
+
+.carte-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-telecharger {
+  background: var(--gradient-wave);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-wave);
+  padding: 0.5rem;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-telecharger:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-bubble);
+}

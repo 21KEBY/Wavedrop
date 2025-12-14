@@ -1,0 +1,68 @@
+:root {
+  /* Couleurs aquatiques */
+  --ocean-deep: #0A2463;
+  --ocean-medium: #1E5F8C;
+  --ocean-light: #3E92CC;
+  --wave-blue: #5AB7DB;
+  --foam-white: #F0F9FF;
+  --bubble-cyan: #7DD3FC;
+  --coral-accent: #FB923C;
+  --pearl-white: #FEFEFE;
+  
+  /* Gradients aquatiques */
+  --gradient-ocean: linear-gradient(135deg, #0A2463 0%, #1E5F8C 50%, #3E92CC 100%);
+  --gradient-wave: linear-gradient(90deg, #3E92CC 0%, #5AB7DB 100%);
+  --gradient-bubble: linear-gradient(180deg, #7DD3FC 0%, #3E92CC 100%);
+  
+  /* Ombres aquatiques */
+  --shadow-wave: 0 4px 20px rgba(62, 146, 204, 0.3);
+  --shadow-deep: 0 8px 32px rgba(10, 36, 99, 0.4);
+  --shadow-bubble: 0 2px 12px rgba(125, 211, 252, 0.2);
+  
+  /* Animations */
+  --transition-wave: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Effet de vagues animées */
+@keyframes wave {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+/* Utilitaires aquatiques */
+.wave-effect {
+  animation: wave 3s ease-in-out infinite;
+}
+
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(125, 211, 252, 0.4);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple-effect:hover::before {
+  width: 300px;
+  height: 300px;
+}

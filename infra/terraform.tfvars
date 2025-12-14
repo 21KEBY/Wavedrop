@@ -11,4 +11,3 @@ keyvault_name   = "kv-wavedrop-001"
 
 # SQL
 sql_admin_user = "waveadmin"
-sql_admin_password = "SuperStrongPassword!123"

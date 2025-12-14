@@ -32,7 +32,7 @@ async function cleanOrphanBlobs() {
     const blobUrl = `https://${process.env.STORAGE_ACCOUNT_NAME}.blob.core.windows.net/audios/${blob.name}`;
     
     if (!usedAudioUrls.has(blobUrl)) {
-      console.log(`🗑️  Suppression audio orphelin: ${blob.name}`);
+      console.log(`  Suppression audio orphelin: ${blob.name}`);
       await audioContainer.deleteBlob(blob.name);
       audioOrphans++;
     }
@@ -46,7 +46,7 @@ async function cleanOrphanBlobs() {
     const blobUrl = `https://${process.env.STORAGE_ACCOUNT_NAME}.blob.core.windows.net/covers/${blob.name}`;
     
     if (!usedCoverUrls.has(blobUrl)) {
-      console.log(`🗑️  Suppression cover orphelin: ${blob.name}`);
+      console.log(`  Suppression cover orphelin: ${blob.name}`);
       await coverContainer.deleteBlob(blob.name);
       coverOrphans++;
     }

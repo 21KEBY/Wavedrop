@@ -7,9 +7,12 @@ variable "sql_admin_password" {
   type      = string
   sensitive = true
 }
+variable "sql_database_name" {
+  type        = string
+  description = "Nom de la base de données Azure SQL"
+}
 
-
-resource "azurerm_mssql_server" "sql" {
+resource "azurerm_mssql_server" "server" {
   name                         = var.sql_server_name
   resource_group_name          = var.rg_name
   location                     = var.location
@@ -19,9 +22,19 @@ resource "azurerm_mssql_server" "sql" {
 }
 
 resource "azurerm_mssql_database" "db" {
-  name      = "musicappdb"
-  server_id = azurerm_mssql_server.sql.id
-  sku_name  = "S0"
+  name      = var.sql_database_name
+  server_id = azurerm_mssql_server.server.id
+  sku_name  = "Basic"
 }
 
-output "sql_fqdn" { value = azurerm_mssql_server.sql.fully_qualified_domain_name }
+resource "azurerm_mssql_firewall_rule" "allow_azure" {
+  name             = "AllowAzureServices"
+  server_id        = azurerm_mssql_server.server.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
+}
+
+output "sql_fqdn" { value = azurerm_mssql_server.server.fully_qualified_domain_name }
+output "database_name" {
+  value = azurerm_mssql_database.db.name
+}

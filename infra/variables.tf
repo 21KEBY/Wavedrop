@@ -21,6 +21,11 @@ variable "sql_server_name" {
   type = string
 }
 
+variable "sql_database_name" {
+  type = string
+}
+
+
 variable "sql_admin_user" {
   type    = string
   default = "waveadmin"

@@ -13,7 +13,7 @@ const imageContainer = "covers";
 export const blobService = {
 
   // Upload du fichier audio
-  async uploadAudio(file: Express.Multer.File) {
+  async uploadAudio(file: { buffer: Buffer; originalname: string }) {
     const containerClient =
       blobServiceClient.getContainerClient(audioContainer);
 
@@ -28,7 +28,7 @@ export const blobService = {
   },
 
   // Upload de l'image de couverture (optionnelle)
-  async uploadCover(file: Express.Multer.File) {
+  async uploadCover(file: { buffer: Buffer; originalname: string }) {
     const containerClient =
       blobServiceClient.getContainerClient(imageContainer);
 

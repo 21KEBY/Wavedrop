@@ -2,7 +2,7 @@ import { prisma } from "../db/prisma";
 
 export const tracksRepository = {
 
-  // 🔓 Récupère UNIQUEMENT les musiques publiques
+  //  Récupère UNIQUEMENT les musiques publiques
   // Utilisé pour l'accueil quand l'utilisateur n'est PAS connecté
   getPublicTracks() {
     return prisma.track.findMany({
@@ -15,7 +15,7 @@ export const tracksRepository = {
     });
   },
 
-  // 🔐 Récupère les musiques visibles par un utilisateur connecté
+  //  Récupère les musiques visibles par un utilisateur connecté
   // → musiques publiques + musiques uploadées par l'utilisateur
   getTracksForUser(userId: number) {
     return prisma.track.findMany({

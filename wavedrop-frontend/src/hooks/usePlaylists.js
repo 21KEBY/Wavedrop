@@ -55,12 +55,34 @@ export const usePlaylists = () => {
     }
   };
 
+  const supprimerPlaylist = async (playlistId) => {
+    try {
+      await musiquesService.supprimerPlaylist(playlistId);
+      setPlaylists(playlists.filter(p => p.id !== playlistId));
+    } catch (error) {
+      console.error('Erreur lors de la suppression de la playlist:', error);
+      throw error;
+    }
+  };
+
+  const renommerPlaylist = async (playlistId, nouveauNom) => {
+    try {
+      await musiquesService.renommerPlaylist(playlistId, nouveauNom);
+      await chargerPlaylists(); // Recharger pour mettre à jour
+    } catch (error) {
+      console.error('Erreur lors du renommage de la playlist:', error);
+      throw error;
+    }
+  };
+
   return {
     playlists,
     chargement,
     erreur,
     chargerPlaylists,
     creerPlaylist,
+    supprimerPlaylist,
+    renommerPlaylist,
     ajouterMusique,
     retirerMusique,
   };

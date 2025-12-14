@@ -41,4 +41,19 @@ export const blobService = {
 
     return blockBlobClient.url;
   },
+
+  // Supprimer un blob (rollback en cas d'échec)
+  async deleteBlob(containerName: string, blobUrl: string) {
+    try {
+      const url = new URL(blobUrl);
+      const blobName = url.pathname.split('/').slice(2).join('/');
+      
+      const containerClient = blobServiceClient.getContainerClient(containerName);
+      await containerClient.deleteBlob(blobName);
+      
+      console.log(`✅ Blob supprimé: ${blobName}`);
+    } catch (error) {
+      console.error(`❌ Erreur suppression blob:`, error);
+    }
+  },
 };

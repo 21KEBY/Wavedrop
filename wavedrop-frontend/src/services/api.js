@@ -37,6 +37,26 @@ export const api = {
     return response.json();
   },
 
+  // Faire une requête PUT (modifier des données)
+  put: async (endpoint, data) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${API_URL}${endpoint}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': token ? `Bearer ${token}` : '',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw { response, message: errorData.error || response.statusText };
+    }
+    
+    return response.json();
+  },
+
   // Faire une requête POST avec FormData (pour envoyer des fichiers)
   postFormData: async (endpoint, formData) => {
     const token = localStorage.getItem('token');
@@ -69,6 +89,11 @@ export const api = {
     
     if (!response.ok) {
       throw new Error(`Erreur API: ${response.statusText}`);
+    }
+    
+    // Si 204 No Content, ne pas parser JSON
+    if (response.status === 204) {
+      return null;
     }
     
     return response.json();

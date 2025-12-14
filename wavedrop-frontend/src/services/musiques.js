@@ -6,8 +6,18 @@ const MODE_DEV = false;
 
 export const musiquesService = MODE_DEV ? mockMusiquesService : {
   obtenirToutesLesMusiques: async () => {
-    // Backend: GET /tracks/public (route publique)
-    return api.get('/tracks/public');
+    // Backend: GET /tracks/connected (route protégée - affiche musiques publiques + uploads user)
+    const tracks = await api.get('/tracks/connected');
+    // Transformer les données backend → frontend
+    return tracks.map(track => ({
+      id: track.id,
+      titre: track.title,
+      artiste: track.artistName || 'Artiste inconnu',
+      duree: track.duration || 0,
+      urlCover: track.coverUrl,
+      urlAudio: track.audioUrl,
+      isUserUpload: track.isUserUpload
+    }));
   },
 
   obtenirMusique: async (id) => {
@@ -25,7 +35,17 @@ export const musiquesService = MODE_DEV ? mockMusiquesService : {
 
   creerPlaylist: async (nom) => {
     // Backend: POST /playlists
-    return api.post('/playlists', { nom });
+    return api.post('/playlists', { name: nom });  // Backend attend "name"
+  },
+
+  supprimerPlaylist: async (playlistId) => {
+    // Backend: DELETE /playlists/:id
+    return api.delete(`/playlists/${playlistId}`);
+  },
+
+  renommerPlaylist: async (playlistId, nouveauNom) => {
+    // Backend: PUT /playlists/:id
+    return api.put(`/playlists/${playlistId}`, { name: nouveauNom });
   },
 
   ajouterMusiqueAPlaylist: async (playlistId, musiqueId) => {

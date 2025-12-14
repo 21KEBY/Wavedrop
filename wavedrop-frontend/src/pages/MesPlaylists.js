@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePlaylists } from '../hooks/usePlaylists';
 import EditeurPlaylist from '../components/Playlists/EditeurPlaylist';
 import { Plus, Music2 } from 'lucide-react';
 import './MesPlaylists.css';
 
 const MesPlaylists = () => {
-  const { playlists, chargement, creerPlaylist } = usePlaylists();
+  const { playlists, chargement, creerPlaylist, chargerPlaylists } = usePlaylists();
   const [playlistSelectionnee, setPlaylistSelectionnee] = useState(null);
   const [afficherFormulaire, setAfficherFormulaire] = useState(false);
   const [nomNouvellePlaylist, setNomNouvellePlaylist] = useState('');
   const [erreur, setErreur] = useState('');
+
+  // Callback pour gérer la suppression de playlist
+  const handlePlaylistSupprimee = () => {
+    setPlaylistSelectionnee(null);
+    chargerPlaylists();
+  };
+
+  // Mettre à jour la playlist sélectionnée quand les playlists changent
+  useEffect(() => {
+    if (playlistSelectionnee) {
+      const playlistMiseAJour = playlists.find(p => p.id === playlistSelectionnee.id);
+      if (playlistMiseAJour) {
+        setPlaylistSelectionnee(playlistMiseAJour);
+      }
+    }
+  }, [playlists]);
 
   const handleCreerPlaylist = async (e) => {
     e.preventDefault();
@@ -107,8 +123,8 @@ const MesPlaylists = () => {
                     <Music2 size={24} />
                   </div>
                   <div className="playlist-info">
-                    <h3>{playlist.nom}</h3>
-                    <p>{playlist.musiques?.length || 0} musiques</p>
+                    <h3>{playlist.name}</h3>
+                    <p>{playlist.tracks?.length || 0} musiques</p>
                   </div>
                 </div>
               ))
@@ -118,7 +134,11 @@ const MesPlaylists = () => {
 
         <main className="playlists-content">
           {playlistSelectionnee ? (
-            <EditeurPlaylist playlist={playlistSelectionnee} />
+            <EditeurPlaylist 
+              playlist={playlistSelectionnee} 
+              onPlaylistSupprimee={handlePlaylistSupprimee}
+              onPlaylistModifiee={chargerPlaylists}
+            />
           ) : (
             <div className="playlists-placeholder">
               <Music2 size={64} className="icon-placeholder" />

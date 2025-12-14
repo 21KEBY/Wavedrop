@@ -30,6 +30,7 @@ model User {
 model Track {
   id          Int       @id @default(autoincrement())
   title       String                      // titre de la musique
+  artistName  String?                     // nom de l'artiste (pour uploads utilisateurs)
   duration    Int?                        // durée en secondes
   coverUrl    String?                     // URL image stockée sur Azure Blob
   audioUrl    String                      // URL du fichier audio sur Azure Blob
@@ -88,7 +89,7 @@ model Album {
 
 model Playlist {
   id        Int    @id @default(autoincrement())
-  title     String                     // nom de la playlist
+  name      String                     // nom de la playlist (changé de title → name)
 
   userId    Int                         // propriétaire
   user      User   @relation(fields: [userId], references: [id])

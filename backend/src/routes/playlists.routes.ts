@@ -16,6 +16,9 @@ router.get("/", playlistsController.getAll);
 // Supprimer une playlist
 router.delete("/:id", playlistsController.delete);
 
+// Renommer une playlist
+router.put("/:id", playlistsController.update);
+
 // Ajouter une musique
 router.post("/:id/tracks", playlistsController.addTrack);
 

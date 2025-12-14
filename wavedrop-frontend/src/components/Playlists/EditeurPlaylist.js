@@ -1,25 +1,99 @@
 import React, { useState } from 'react';
 import { usePlaylists } from '../../hooks/usePlaylists';
 import { useAudio } from '../../hooks/useAudio';
+import { Trash2, Edit2 } from 'lucide-react';
 import './EditeurPlaylist.css';
 
-const EditeurPlaylist = ({ playlist }) => {
-  const { retirerMusique } = usePlaylists();
+const EditeurPlaylist = ({ playlist, onPlaylistSupprimee, onPlaylistModifiee }) => {
+  const { retirerMusique, supprimerPlaylist, renommerPlaylist } = usePlaylists();
   const { jouer } = useAudio();
   const [afficherConfirmation, setAfficherConfirmation] = useState(null);
+  const [afficherConfirmationSuppression, setAfficherConfirmationSuppression] = useState(false);
+  const [modeRenommage, setModeRenommage] = useState(false);
+  const [nouveauNom, setNouveauNom] = useState('');
+  const [musiquesLocales, setMusiquesLocales] = useState([]);
+  
+  // Mapper les données backend vers frontend
+  const musiques = musiquesLocales.length > 0 ? musiquesLocales : (playlist.tracks?.map(pt => ({
+    id: pt.track.id,
+    titre: pt.track.title,
+    artiste: pt.track.artistName || 'Artiste inconnu',
+    duree: pt.track.duration || 0,
+    urlCover: pt.track.coverUrl,
+    urlAudio: pt.track.audioUrl
+  })) || []);
+
+  // Initialiser musiques locales au chargement
+  React.useEffect(() => {
+    if (playlist.tracks) {
+      const mapped = playlist.tracks.map(pt => ({
+        id: pt.track.id,
+        titre: pt.track.title,
+        artiste: pt.track.artistName || 'Artiste inconnu',
+        duree: pt.track.duration || 0,
+        urlCover: pt.track.coverUrl,
+        urlAudio: pt.track.audioUrl
+      }));
+      setMusiquesLocales(mapped);
+    }
+  }, [playlist.tracks]);
 
   const handleRetirerMusique = async (musiqueId) => {
     try {
-      await retirerMusique(playlist.id, musiqueId);
+      // Mise à jour immédiate de l'UI avec prevState
+      setMusiquesLocales(prev => prev.filter(m => m.id !== musiqueId));
       setAfficherConfirmation(null);
+      // Appel backend
+      await retirerMusique(playlist.id, musiqueId);
+      // Notifier le parent pour rafraîchir
+      if (onPlaylistModifiee) onPlaylistModifiee();
     } catch (error) {
+      // En cas d'erreur, recharger depuis playlist.tracks
+      if (playlist.tracks) {
+        const mapped = playlist.tracks.map(pt => ({
+          id: pt.track.id,
+          titre: pt.track.title,
+          artiste: pt.track.artistName || 'Artiste inconnu',
+          duree: pt.track.duration || 0,
+          urlCover: pt.track.coverUrl,
+          urlAudio: pt.track.audioUrl
+        }));
+        setMusiquesLocales(mapped);
+      }
       alert('Erreur lors de la suppression de la musique');
     }
   };
 
   const handleJouerPlaylist = () => {
-    if (playlist.musiques && playlist.musiques.length > 0) {
-      jouer(playlist.musiques[0], playlist.musiques);
+    if (musiques && musiques.length > 0) {
+      jouer(musiques[0], musiques);
+    }
+  };
+
+  const handleSupprimerPlaylist = async () => {
+    try {
+      await supprimerPlaylist(playlist.id);
+      setAfficherConfirmationSuppression(false);
+      // Notifier le parent que la playlist a été supprimée
+      if (onPlaylistSupprimee) onPlaylistSupprimee();
+    } catch (error) {
+      alert('Erreur lors de la suppression de la playlist');
+    }
+  };
+
+  const handleRenommer = async () => {
+    if (!nouveauNom.trim()) {
+      alert('Le nom ne peut pas être vide');
+      return;
+    }
+    try {
+      await renommerPlaylist(playlist.id, nouveauNom);
+      setModeRenommage(false);
+      setNouveauNom('');
+      // Notifier le parent pour rafraîchir
+      if (onPlaylistModifiee) onPlaylistModifiee();
+    } catch (error) {
+      alert('Erreur lors du renommage de la playlist');
     }
   };
 
@@ -36,10 +110,31 @@ const EditeurPlaylist = ({ playlist }) => {
   return (
     <div className="editeur-playlist">
       <div className="editeur-header">
-        <h2>{playlist.nom}</h2>
+        <div className="header-titre">
+          <h2>{playlist.name}</h2>
+          <div className="header-actions">
+            <button 
+              onClick={() => {
+                setModeRenommage(true);
+                setNouveauNom(playlist.name);
+              }}
+              className="btn-renommer-playlist"
+              title="Renommer la playlist"
+            >
+              <Edit2 size={18} />
+            </button>
+            <button 
+              onClick={() => setAfficherConfirmationSuppression(true)}
+              className="btn-supprimer-playlist"
+              title="Supprimer la playlist"
+            >
+              <Trash2 size={18} />
+            </button>
+          </div>
+        </div>
         <div className="editeur-stats">
-          <span>{playlist.musiques?.length || 0} musiques</span>
-          {playlist.musiques && playlist.musiques.length > 0 && (
+          <span>{musiques.length} musiques</span>
+          {musiques.length > 0 && (
             <button onClick={handleJouerPlaylist} className="btn-jouer-tout">
               ▶️ Tout jouer
             </button>
@@ -48,13 +143,13 @@ const EditeurPlaylist = ({ playlist }) => {
       </div>
 
       <div className="editeur-liste">
-        {!playlist.musiques || playlist.musiques.length === 0 ? (
+        {musiques.length === 0 ? (
           <div className="liste-vide">
             <p>Cette playlist est vide</p>
             <p className="texte-aide">Ajoutez des musiques depuis la bibliothèque</p>
           </div>
         ) : (
-          playlist.musiques.map((musique, index) => (
+          musiques.map((musique, index) => (
             <div key={musique.id} className="editeur-item">
               <div className="item-numero">{index + 1}</div>
               
@@ -77,7 +172,7 @@ const EditeurPlaylist = ({ playlist }) => {
 
               <div className="item-actions">
                 <button
-                  onClick={() => jouer(musique, playlist.musiques)}
+                  onClick={() => jouer(musique, musiques)}
                   className="btn-jouer"
                   title="Jouer"
                 >
@@ -117,6 +212,65 @@ const EditeurPlaylist = ({ playlist }) => {
           ))
         )}
       </div>
+
+      {afficherConfirmationSuppression && (
+        <div className="confirmation-overlay">
+          <div className="confirmation-box">
+            <h3>Supprimer la playlist ?</h3>
+            <p>Cette action est irréversible.</p>
+            <div className="confirmation-actions">
+              <button
+                onClick={handleSupprimerPlaylist}
+                className="btn-confirmer btn-danger"
+              >
+                Supprimer
+              </button>
+              <button
+                onClick={() => setAfficherConfirmationSuppression(false)}
+                className="btn-annuler"
+              >
+                Annuler
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {modeRenommage && (
+        <div className="confirmation-overlay">
+          <div className="confirmation-box">
+            <h3>Renommer la playlist</h3>
+            <input
+              type="text"
+              value={nouveauNom}
+              onChange={(e) => setNouveauNom(e.target.value)}
+              className="input-renommer"
+              placeholder="Nouveau nom"
+              autoFocus
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') handleRenommer();
+              }}
+            />
+            <div className="confirmation-actions">
+              <button
+                onClick={handleRenommer}
+                className="btn-confirmer"
+              >
+                Renommer
+              </button>
+              <button
+                onClick={() => {
+                  setModeRenommage(false);
+                  setNouveauNom('');
+                }}
+                className="btn-annuler"
+              >
+                Annuler
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -52,20 +52,19 @@ const RoutePublique = ({ children }) => {
 
 // Composant Layout
 const Layout = ({ children }) => {
-  const { estConnecte } = useAuth();
-
   return (
     <div className="app-layout">
       <BarreNavigation />
       <main className="app-content">{children}</main>
-      {estConnecte && <BarreLecteur />}
     </div>
   );
 };
 
 function AppContent() {
+  const { estConnecte } = useAuth();
+  
   return (
-    <Router>
+    <>
       <Routes>
         {/* Routes publiques */}
         <Route
@@ -130,17 +129,20 @@ function AppContent() {
         {/* Redirection par défaut */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </Router>
+      {estConnecte && <BarreLecteur />}
+    </>
   );
 }
 
 function App() {
   return (
-    <AuthProvider>
-      <LecteurProvider>
-        <AppContent />
-      </LecteurProvider>
-    </AuthProvider>
+    <Router>
+      <AuthProvider>
+        <LecteurProvider>
+          <AppContent />
+        </LecteurProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

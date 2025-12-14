@@ -22,6 +22,19 @@ export const playlistsRepository = {
     });
   },
 
+  // Renommer une playlist
+  updatePlaylistName(playlistId: number, userId: number, name: string) {
+    return prisma.playlist.updateMany({
+      where: {
+        id: playlistId,
+        userId, // sécurité : seul le propriétaire peut modifier
+      },
+      data: {
+        name,
+      },
+    });
+  },
+
   // Récupérer toutes les playlists d'un utilisateur
   getUserPlaylists(userId: number) {
     return prisma.playlist.findMany({
@@ -34,6 +47,17 @@ export const playlistsRepository = {
         },
       },
     });
+  },
+
+  // Vérifier si une musique existe déjà dans une playlist
+  async trackExistsInPlaylist(playlistId: number, trackId: number) {
+    const count = await prisma.playlistTrack.count({
+      where: {
+        playlistId,
+        trackId,
+      },
+    });
+    return count > 0;
   },
 
   // Ajouter une musique à une playlist

@@ -94,10 +94,12 @@
 }
 
 .carte-actions {
+  position: relative;
   display: flex;
   gap: 0.5rem;
 }
 
+.btn-ajouter-playlist,
 .btn-telecharger {
   background: var(--gradient-wave);
   border: none;
@@ -111,7 +113,69 @@
   justify-content: center;
 }
 
+.btn-ajouter-playlist:hover,
 .btn-telecharger:hover {
   transform: scale(1.1);
   box-shadow: var(--shadow-bubble);
+}
+
+.menu-playlists {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow-wave);
+  padding: 0.5rem;
+  min-width: 200px;
+  z-index: 10;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.menu-playlist-item {
+  width: 100%;
+  padding: 0.75rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: var(--transition-wave);
+  color: var(--ocean-deep);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.menu-playlist-item:hover {
+  background: var(--gradient-wave);
+  color: white;
+}
+
+.menu-playlist-item.dans-playlist {
+  background: rgba(29, 185, 84, 0.1);
+  color: #1db954;
+  font-weight: 500;
+}
+
+.menu-playlist-item.dans-playlist:hover {
+  background: rgba(29, 185, 84, 0.2);
+  color: #1db954;
+}
+
+.icone-check {
+  color: #1db954;
+  flex-shrink: 0;
+}
+
+.menu-vide {
+  padding: 1rem;
+  text-align: center;
+  color: var(--ocean-light);
+  font-size: 0.9rem;
+  margin: 0;
 }

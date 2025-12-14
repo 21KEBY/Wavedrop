@@ -23,6 +23,8 @@
   gap: 0.75rem;
   cursor: pointer;
   transition: var(--transition-wave);
+  text-decoration: none;
+  color: inherit;
 }
 
 .nav-logo:hover {

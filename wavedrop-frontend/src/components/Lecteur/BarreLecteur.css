@@ -100,6 +100,24 @@
   box-shadow: var(--shadow-bubble);
 }
 
+.btn-repeat {
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  opacity: 0.6;
+  transition: all 0.3s;
+}
+
+.btn-repeat:hover {
+  opacity: 1;
+}
+
+.btn-repeat.active {
+  background: var(--wave-blue);
+  border-color: var(--wave-blue);
+  opacity: 1;
+}
+
 .btn-play-pause:hover {
   background: var(--bubble-cyan);
   color: white;

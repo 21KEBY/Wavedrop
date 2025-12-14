@@ -69,8 +69,8 @@ const UploadMusique = () => {
       if (fichierCover) {
         formData.append('cover', fichierCover);
       }
-      formData.append('titre', titre);
-      formData.append('artiste', artiste);
+      formData.append('title', titre);
+      formData.append('artistName', artiste);
 
       // Simuler la progression (à adapter avec votre API)
       const interval = setInterval(() => {

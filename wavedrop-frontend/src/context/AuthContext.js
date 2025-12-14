@@ -18,25 +18,11 @@ export const AuthProvider = ({ children }) => {
           setEstConnecte(true);
         } catch (error) {
           console.error('Erreur lors de la vérification de l\'authentification:', error);
-          // En mode DEV, connecter automatiquement
-          const userDemo = {
-            id: 1,
-            email: 'demo@wavedrop.com',
-            dateCreation: new Date().toISOString()
-          };
-          setUtilisateur(userDemo);
-          setEstConnecte(true);
+          // Déconnexion si le token est invalide
+          localStorage.removeItem('token');
+          setUtilisateur(null);
+          setEstConnecte(false);
         }
-      } else {
-        // En mode DEV, créer un token automatiquement
-        localStorage.setItem('token', 'fake-jwt-token-dev-mode');
-        const userDemo = {
-          id: 1,
-          email: 'demo@wavedrop.com',
-          dateCreation: new Date().toISOString()
-        };
-        setUtilisateur(userDemo);
-        setEstConnecte(true);
       }
       setChargement(false);
     };

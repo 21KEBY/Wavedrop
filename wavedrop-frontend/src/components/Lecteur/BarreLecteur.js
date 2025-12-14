@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAudio } from '../../hooks/useAudio';
-import { Play, Pause, SkipBack, SkipForward, Download, Volume2, Music } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Download, Volume2, Music, Repeat, Repeat1 } from 'lucide-react';
 import './BarreLecteur.css';
 
 const BarreLecteur = () => {
@@ -10,12 +10,14 @@ const BarreLecteur = () => {
     volume,
     progression,
     duree,
+    modeRepetition,
     pause,
     reprendre,
     suivant,
     precedent,
     changerVolume,
     changerProgression,
+    changerModeRepetition,
     telecharger,
   } = useAudio();
 
@@ -27,6 +29,11 @@ const BarreLecteur = () => {
     const minutes = Math.floor(secondes / 60);
     const secs = Math.floor(secondes % 60);
     return `${minutes}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const getRepeatIcon = () => {
+    if (modeRepetition === 'one') return <Repeat1 size={20} />;
+    return <Repeat size={20} />;
   };
 
   const handleProgressionChange = (e) => {
@@ -78,6 +85,13 @@ const BarreLecteur = () => {
             </button>
             <button onClick={suivant} className="btn-controle" title="Suivant">
               <SkipForward size={20} />
+            </button>
+            <button 
+              onClick={changerModeRepetition}
+              className={`btn-controle btn-repeat ${modeRepetition !== 'off' ? 'active' : ''}`}
+              title={modeRepetition === 'off' ? 'Répétition désactivée' : modeRepetition === 'one' ? 'Répéter la piste' : 'Répéter la playlist'}
+            >
+              {getRepeatIcon()}
             </button>
           </div>
 

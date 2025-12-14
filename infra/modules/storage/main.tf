@@ -13,8 +13,8 @@ resource "azurerm_storage_account" "sa" {
 
 resource "azurerm_storage_container" "audio" {
   name                  = "audio"
-  storage_account_id    = azurerm_storage_account.sa.id
-  container_access_type = "private"
+  storage_account_id   = azurerm_storage_account.sa.id
+  container_access_type = "blob"  # Public en lecture (pour dev)
 }
 
 output "storage_account_name" { value = azurerm_storage_account.sa.name }

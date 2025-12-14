@@ -8,5 +8,6 @@ variable "image_tag" {}
 variable "appinsights_instrumentation_key" {}
 
 variable "sql_server_fqdn" {}
+variable "sql_database_name"{}
 variable "sql_admin_user" {}
 variable "sql_admin_password_secret_uri" {}

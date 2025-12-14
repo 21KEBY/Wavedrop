@@ -1,40 +1,44 @@
-resource "azurerm_app_service_plan" "plan" {
+resource "azurerm_service_plan" "plan" {
   name                = var.plan_name
   location            = var.location
   resource_group_name = var.rg_name
-  kind                = "Linux"
-  reserved            = true
-  sku {
-    tier = "PremiumV2"
-    size = "P1v2"
-  }
+ 
+ os_type = "Linux"
+ sku_name = "S1"
 }
 
-resource "azurerm_app_service" "webapp" {
+resource "azurerm_linux_web_app" "webapp" {
   name                = var.app_name
   location            = var.location
   resource_group_name = var.rg_name
-  app_service_plan_id = azurerm_app_service_plan.plan.id
+  service_plan_id = azurerm_service_plan.plan.id
 
   identity {
     type = "SystemAssigned"
   }
 
   site_config {
-    linux_fx_version                     = "DOCKER|${var.acr_login_server}/${var.image_repository}:${var.image_tag}"
-    acr_use_managed_identity_credentials = true
+    container_registry_use_managed_identity = true
   }
 
   app_settings = {
-    #Monitoring
+    # Monitoring
     "APPINSIGHTS_INSTRUMENTATIONKEY"      = var.appinsights_instrumentation_key
     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
-    #SQL
-    SQL_SERVER         = module.sql.sql_fqdn
-    SQL_ADMIN_USER     = var.sql_admin_user
-    SQL_ADMIN_PASSWORD = "@Microsoft.KeyVault(SecretUri=${module.keyvault.sql_admin_password_secret_uri})"
+
+    # SQL connection (Key Vault reference used in the string)
+    DATABASE_URL = "sqlserver://${var.sql_admin_user}:@Microsoft.KeyVault(SecretUri=${var.sql_admin_password_secret_uri})@${var.sql_server_fqdn}:1433;database=${var.sql_database_name};encrypt=true"
   }
 }
 
-output "app_default_hostname" { value = azurerm_app_service.webapp.default_site_hostname }
-output "web_app_principal_id" { value = azurerm_app_service.webapp.identity[0].principal_id }
+output "app_default_hostname" {
+  value = "${var.app_name}.azurewebsites.net"
+}
+
+output "web_app_principal_id" {
+  value = azurerm_linux_web_app.webapp.identity[0].principal_id
+}
+
+output "webapp_principal_id" {
+  value = azurerm_linux_web_app.webapp.identity[0].principal_id
+}

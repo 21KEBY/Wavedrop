@@ -19,9 +19,9 @@ resource "azurerm_mssql_server" "sql" {
 }
 
 resource "azurerm_mssql_database" "db" {
-  name      = "musicappdb"
+  name      = "wavedrop-db"
   server_id = azurerm_mssql_server.sql.id
-  sku_name  = "S0"
+  sku_name  = "Basic"
 }
 
 output "sql_fqdn" { value = azurerm_mssql_server.sql.fully_qualified_domain_name }

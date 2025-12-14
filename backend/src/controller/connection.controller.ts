@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { connectionService } from "../service/connection.service";
+import type { Request, Response } from "express";
+import { connectionService } from "../service/connection.service.ts";
 
 export const connectionController = {
   async login(req: Request, res: Response) {

@@ -1,12 +1,15 @@
-// Génère le client Prisma utilisé dans ton backend
 generator client {
   provider = "prisma-client-js"
 }
 
-// Connexion à Azure SQL Database
 datasource db {
-  provider = "sqlserver"
+  provider = "sqlite"
 }
+
+// PRODUCTION : Azure SQL Database (à utiliser en production)
+// datasource db {
+//   provider = "sqlserver"
+// }
 
 
 model User {

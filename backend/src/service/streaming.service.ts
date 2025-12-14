@@ -1,5 +1,5 @@
-import { prisma } from "../db/prisma";
-import { sasService } from "../blob/sas.service";
+import { prisma } from "../db/prisma.ts";
+import { sasService } from "../blob/sas.service.ts";
 
 export const streamingService = {
 

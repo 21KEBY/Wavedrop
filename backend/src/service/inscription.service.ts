@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { authRepository } from "../reponsitory/inscription.respository";
+import { authRepository } from "../reponsitory/inscription.respository.ts";
 
 export const authService = {
   async register(email: string, password: string, username: string) {

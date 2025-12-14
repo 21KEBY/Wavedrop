@@ -2,15 +2,12 @@ import { api } from './api';
 import { mockMusiquesService } from './mockData';
 
 // MODE DÉVELOPPEMENT : Utiliser les données fictives
-<<<<<<< HEAD
 const MODE_DEV = false;
-=======
-const MODE_DEV = true;
->>>>>>> f9e5454e1386bcc944ac1accc75add4b53d691f3
 
 export const musiquesService = MODE_DEV ? mockMusiquesService : {
   obtenirToutesLesMusiques: async () => {
-    return api.get('/tracks');
+    // Backend: GET /tracks/public (route publique)
+    return api.get('/tracks/public');
   },
 
   obtenirMusique: async (id) => {
@@ -22,22 +19,27 @@ export const musiquesService = MODE_DEV ? mockMusiquesService : {
   },
 
   obtenirPlaylists: async () => {
+    // Backend: GET /playlists (route protégée)
     return api.get('/playlists');
   },
 
   creerPlaylist: async (nom) => {
+    // Backend: POST /playlists
     return api.post('/playlists', { nom });
   },
 
   ajouterMusiqueAPlaylist: async (playlistId, musiqueId) => {
-    return api.post(`/playlists/${playlistId}/add`, { trackId: musiqueId });
+    // Backend: POST /playlists/:id/tracks
+    return api.post(`/playlists/${playlistId}/tracks`, { trackId: musiqueId });
   },
 
   retirerMusiqueDPlaylist: async (playlistId, musiqueId) => {
-    return api.delete(`/playlists/${playlistId}/remove/${musiqueId}`);
+    // Backend: DELETE /playlists/:id/tracks/:trackId
+    return api.delete(`/playlists/${playlistId}/tracks/${musiqueId}`);
   },
 
   uploadMusique: async (formData) => {
-    return api.postFormData('/tracks/upload', formData);
+    // Backend: POST /upload (route protégée, FormData)
+    return api.postFormData('/upload', formData);
   },
 };

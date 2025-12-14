@@ -2,7 +2,7 @@ import { api } from './api';
 import { mockAuthService } from './mockData';
 
 // MODE DÉVELOPPEMENT : Utiliser les données fictives
-const MODE_DEV = true;
+const MODE_DEV = false;
 
 export const authService = MODE_DEV ? mockAuthService : {
   inscription: async (email, motDePasse) => {

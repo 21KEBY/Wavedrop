@@ -2,7 +2,7 @@ import { api } from './api';
 import { mockMusiquesService } from './mockData';
 
 // MODE DÉVELOPPEMENT : Utiliser les données fictives
-const MODE_DEV = true;
+const MODE_DEV = false;
 
 export const musiquesService = MODE_DEV ? mockMusiquesService : {
   obtenirToutesLesMusiques: async () => {

@@ -1,171 +1,222 @@
 .barre-navigation {
-  background: var(--gradient-ocean);
-  color: white;
-  padding: 1rem 2rem;
-  box-shadow: var(--shadow-deep);
-  position: sticky;
+  position: fixed;
+  left: 0;
   top: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--bg-secondary);
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-lg);
   z-index: 100;
-  backdrop-filter: blur(10px);
+  border-right: 1px solid var(--border-subtle);
 }
 
 .nav-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
+  flex-direction: column;
+  height: 100%;
+  gap: var(--spacing-xl);
 }
 
+/* Logo */
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  cursor: pointer;
-  transition: var(--transition-wave);
-  text-decoration: none;
-  color: inherit;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  transition: opacity var(--transition-fast);
 }
 
 .nav-logo:hover {
-  transform: translateY(-2px);
+  opacity: 0.8;
 }
 
 .logo-icon {
-  color: var(--bubble-cyan);
-  animation: float 4s ease-in-out infinite;
+  color: var(--accent-primary);
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .nav-logo h1 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
-  background: linear-gradient(135deg, #fff 0%, var(--bubble-cyan) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
 }
 
+/* Navigation Links */
 .nav-links {
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  flex: 1;
 }
 
 .nav-link {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: var(--transition-wave);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all var(--transition-fast);
   position: relative;
-  overflow: hidden;
-}
-
-.nav-link::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--bubble-cyan);
-  transition: width 0.3s;
-}
-
-.nav-link:hover::before {
-  width: 100%;
 }
 
 .nav-link:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
+  color: var(--text-primary);
+  background: var(--bg-hover);
 }
 
+.nav-link.active {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+}
+
+.nav-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  background: var(--accent-primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* Section Auth en bas */
 .nav-auth {
   display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.user-info {
+  display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gradient-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
 }
 
 .user-email {
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
+  flex: 1;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+/* Boutons d'authentification */
 .btn-connexion,
 .btn-inscription,
 .btn-deconnexion {
-  padding: 0.5rem 1.25rem;
-  border-radius: 20px;
-  text-decoration: none;
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
   font-weight: 600;
-  transition: var(--transition-wave);
-  cursor: pointer;
-  border: none;
   font-size: 0.95rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  transition: all var(--transition-fast);
+  width: 100%;
 }
 
 .btn-connexion {
   background: transparent;
-  color: white;
-  border: 2px solid var(--bubble-cyan);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-medium);
 }
 
 .btn-connexion:hover {
-  background: var(--bubble-cyan);
-  color: var(--ocean-deep);
-  box-shadow: var(--shadow-bubble);
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-bright);
 }
 
 .btn-inscription {
-  background: var(--bubble-cyan);
-  color: var(--ocean-deep);
-  border: 2px solid transparent;
+  background: var(--accent-primary);
+  color: #000;
+  font-weight: 700;
 }
 
 .btn-inscription:hover {
-  background: white;
-  box-shadow: var(--shadow-wave);
-  transform: translateY(-2px);
+  background: var(--accent-secondary);
+  transform: scale(1.02);
 }
 
 .btn-deconnexion {
-  background: rgba(251, 146, 60, 0.2);
-  color: white;
-  border: 2px solid var(--coral-accent);
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-medium);
 }
 
 .btn-deconnexion:hover {
-  background: var(--coral-accent);
-  box-shadow: 0 4px 12px rgba(251, 146, 60, 0.3);
-  transform: translateY(-2px);
+  background: var(--error);
+  color: var(--text-primary);
+  border-color: var(--error);
 }
 
+/* Responsive */
 @media (max-width: 768px) {
-  .nav-container {
-    flex-direction: column;
-    gap: 1rem;
+  .barre-navigation {
+    width: 100%;
+    height: auto;
+    bottom: auto;
+    flex-direction: row;
+    padding: var(--spacing-md);
   }
-  
+
+  .nav-container {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .nav-logo h1 {
+    display: none;
+  }
+
   .nav-links {
-    flex-wrap: wrap;
+    flex-direction: row;
+    flex: 1;
     justify-content: center;
   }
-  
+
+  .nav-link span {
+    display: none;
+  }
+
   .user-email {
     display: none;
+  }
+
+  .nav-auth {
+    flex-direction: row;
+    padding-top: 0;
+    border-top: none;
   }
 }

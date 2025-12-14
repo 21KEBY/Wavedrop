@@ -28,21 +28,18 @@ resource "azurerm_key_vault_secret" "sql_password" {
   key_vault_id = azurerm_key_vault.kv.id
 }
 
-resource "azurerm_key_vault_access_policy" "webapp_policy" {
-  key_vault_id = azurerm_key_vault.kv.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = var.webapp_principal_id
-
-  secret_permissions = ["Get", "List"]
+#  Accès du Web App (Managed Identity) aux secrets
+resource "azurerm_role_assignment" "webapp_kv_secrets" {
+  scope                = azurerm_key_vault.kv.id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = var.webapp_principal_id
 }
 
-// Give the currently authenticated principal (Terraform / az CLI) permissions to manage secrets
-resource "azurerm_key_vault_access_policy" "terraform_user" {
-  key_vault_id = azurerm_key_vault.kv.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
-
-  secret_permissions = ["Get", "List", "Set", "Delete"]
+# Accès Terraform / utilisateur courant
+resource "azurerm_role_assignment" "terraform_kv_admin" {
+  scope                = azurerm_key_vault.kv.id
+  role_definition_name = "Key Vault Administrator"
+  principal_id         = data.azurerm_client_config.current.object_id
 }
 
 output "sql_admin_password_secret_uri" {

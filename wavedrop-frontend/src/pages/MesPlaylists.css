@@ -1,7 +1,7 @@
 .playlists-page {
   min-height: 100vh;
-  background: var(--foam-white);
-  padding-bottom: 120px;
+  background: var(--bg-primary);
+  animation: fadeIn 0.3s ease-out;
 }
 
 .playlists-chargement {
@@ -10,44 +10,45 @@
   align-items: center;
   justify-content: center;
   min-height: 50vh;
-  color: var(--ocean-medium);
+  color: var(--text-secondary);
 }
 
 .playlists-container {
   display: grid;
   grid-template-columns: 350px 1fr;
-  gap: 2rem;
-  max-width: 1400px;
+  gap: var(--spacing-xl);
+  max-width: 1800px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--spacing-2xl);
   min-height: calc(100vh - 140px);
 }
 
 /* Sidebar */
 .playlists-sidebar {
-  background: white;
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: var(--shadow-bubble);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
   height: fit-content;
   position: sticky;
-  top: 2rem;
-  border: 2px solid rgba(62, 146, 204, 0.1);
+  top: var(--spacing-xl);
+  border: 1px solid var(--border-subtle);
 }
 
 .sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid rgba(62, 146, 204, 0.1);
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .sidebar-header h2 {
   margin: 0;
-  color: var(--ocean-deep);
-  font-size: 1.3rem;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .btn-nouvelle-playlist {

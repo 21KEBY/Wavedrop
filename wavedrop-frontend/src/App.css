@@ -5,12 +5,15 @@
 .app-layout {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  background: var(--bg-primary);
 }
 
 .app-content {
   flex: 1;
-  padding-bottom: 120px; /* Espace pour le lecteur fixe en bas */
+  margin-left: var(--sidebar-width);
+  padding-bottom: 100px; /* Espace pour le lecteur fixe en bas */
+  min-height: 100vh;
+  background: var(--bg-primary);
 }
 
 .chargement-page {
@@ -19,15 +22,15 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .chargement-page .spinner {
   width: 60px;
   height: 60px;
-  border: 5px solid rgba(255, 255, 255, 0.3);
-  border-top: 5px solid white;
+  border: 5px solid var(--bg-tertiary);
+  border-top: 5px solid var(--accent-primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
@@ -36,9 +39,19 @@
 .chargement-page p {
   font-size: 1.2rem;
   margin: 0;
+  color: var(--text-secondary);
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-content {
+    margin-left: 0;
+    margin-top: 70px; /* Espace pour la nav mobile en haut */
+    padding-bottom: 180px; /* Plus d'espace pour lecteur + nav mobile */
+  }
 }

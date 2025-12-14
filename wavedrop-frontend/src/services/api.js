@@ -51,7 +51,9 @@ export const api = {
     
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw { response, message: errorData.error || response.statusText };
+      const error = new Error(errorData.error || response.statusText);
+      error.response = response;
+      throw error;
     }
     
     return response.json();
@@ -99,3 +101,5 @@ export const api = {
     return response.json();
   },
 };
+
+export default api;

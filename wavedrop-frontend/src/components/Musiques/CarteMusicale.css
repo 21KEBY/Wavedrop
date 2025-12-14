@@ -1,46 +1,85 @@
 .carte-musicale {
-  background: white;
-  border-radius: 16px;
-  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
   display: flex;
   align-items: center;
-  gap: 1rem;
-  box-shadow: var(--shadow-bubble);
-  transition: var(--transition-wave);
+  gap: var(--spacing-lg);
+  transition: all var(--transition-base);
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.carte-musicale::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-shine);
+  opacity: 0;
+  transition: opacity var(--transition-base);
 }
 
 .carte-musicale:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-wave);
-  border-color: var(--wave-blue);
+  background: var(--bg-elevated);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.carte-musicale:hover::before {
+  opacity: 1;
+  animation: shimmer 1.5s infinite;
 }
 
 .carte-musicale.en-lecture {
-  background: linear-gradient(135deg, rgba(62, 146, 204, 0.1) 0%, rgba(90, 183, 219, 0.1) 100%);
-  border: 2px solid var(--wave-blue);
+  background: rgba(29, 185, 84, 0.1);
+  border: 1px solid var(--accent-primary);
+}
+
+.carte-musicale.en-lecture::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent-primary);
 }
 
 .carte-cover {
   position: relative;
   width: 80px;
   height: 80px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.carte-musicale:hover .carte-cover {
+  box-shadow: var(--shadow-md);
 }
 
 .carte-cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform var(--transition-base);
+}
+
+.carte-musicale:hover .carte-cover img {
+  transform: scale(1.05);
 }
 
 .cover-placeholder {
   width: 100%;
   height: 100%;
-  background: var(--gradient-wave);
+  background: var(--gradient-blue);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,131 +90,185 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(10, 36, 99, 0.9);
+  transform: translate(-50%, -50%) scale(0.8);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
   border: none;
   border-radius: 50%;
   width: 40px;
   height: 40px;
   cursor: pointer;
   opacity: 0;
-  transition: var(--transition-wave);
+  transition: all var(--transition-base);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--accent-primary);
 }
 
 .carte-cover:hover .btn-play {
   opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.btn-play:hover {
+  background: rgba(0, 0, 0, 0.9);
+  color: var(--accent-secondary);
 }
 
 .carte-info {
   flex: 1;
+  min-width: 0;
 }
 
 .carte-titre {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.1rem;
-  color: var(--ocean-deep);
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 1rem;
+  color: var(--text-primary);
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.carte-musicale:hover .carte-titre {
+  color: var(--accent-secondary);
 }
 
 .carte-artiste {
-  margin: 0 0 0.25rem 0;
-  color: var(--ocean-medium);
+  margin: 0 0 var(--spacing-xs) 0;
+  color: var(--text-secondary);
   font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .carte-duree {
   margin: 0;
-  color: var(--ocean-light);
+  color: var(--text-tertiary);
   font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .carte-actions {
   position: relative;
   display: flex;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all var(--transition-base);
+}
+
+.carte-musicale:hover .carte-actions {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .btn-ajouter-playlist,
 .btn-telecharger {
-  background: var(--gradient-wave);
-  border: none;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-medium);
   cursor: pointer;
-  transition: var(--transition-wave);
-  padding: 0.5rem;
-  border-radius: 8px;
-  color: white;
+  transition: all var(--transition-fast);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 36px;
+  height: 36px;
 }
 
 .btn-ajouter-playlist:hover,
 .btn-telecharger:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-bright);
   transform: scale(1.1);
-  box-shadow: var(--shadow-bubble);
+}
+
+.btn-ajouter-playlist.added {
+  background: rgba(29, 185, 84, 0.2);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
 }
 
 .menu-playlists {
   position: absolute;
   right: 0;
   top: 100%;
-  margin-top: 0.5rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: var(--shadow-wave);
-  padding: 0.5rem;
-  min-width: 200px;
+  margin-top: var(--spacing-sm);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-sm);
+  min-width: 220px;
   z-index: 10;
   max-height: 300px;
   overflow-y: auto;
+  animation: scaleIn 0.15s ease-out;
 }
 
 .menu-playlist-item {
   width: 100%;
-  padding: 0.75rem;
+  padding: var(--spacing-md);
   background: transparent;
   border: none;
   text-align: left;
   cursor: pointer;
-  border-radius: 8px;
-  transition: var(--transition-wave);
-  color: var(--ocean-deep);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  color: var(--text-primary);
   font-size: 0.95rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .menu-playlist-item:hover {
-  background: var(--gradient-wave);
-  color: white;
+  background: var(--bg-hover);
 }
 
 .menu-playlist-item.dans-playlist {
   background: rgba(29, 185, 84, 0.1);
-  color: #1db954;
-  font-weight: 500;
+  color: var(--accent-primary);
+  font-weight: 600;
 }
 
 .menu-playlist-item.dans-playlist:hover {
-  background: rgba(29, 185, 84, 0.2);
-  color: #1db954;
+  background: rgba(29, 185, 84, 0.15);
 }
 
 .icone-check {
-  color: #1db954;
+  color: var(--accent-primary);
   flex-shrink: 0;
 }
 
 .menu-vide {
-  padding: 1rem;
+  padding: var(--spacing-lg);
   text-align: center;
-  color: var(--ocean-light);
+  color: var(--text-tertiary);
   font-size: 0.9rem;
   margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .carte-musicale {
+    padding: var(--spacing-md);
+  }
+
+  .carte-cover {
+    width: 60px;
+    height: 60px;
+  }
+
+  .carte-actions {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

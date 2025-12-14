@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { tracksController } from "../controller/tracks.controller";
-import { requireConnection } from "../middleware/connection.middleware";
+import { tracksController } from "../controller/tracks.controller.ts";
+import { requireConnection } from "../middleware/connection.middleware.ts";
 
 const router = Router();
 

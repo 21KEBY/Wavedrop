@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { streamingService } from "../service/streaming.service";
+import type { Request, Response } from "express";
+import { streamingService } from "../service/streaming.service.ts";
 
 export const streamingController = {
 

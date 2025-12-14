@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { tracksService } from "../service/tracks.service";
-import { ConnectionRequest } from "../middleware/connection.middleware";
+import type { Request, Response } from "express";
+import { tracksService } from "../service/tracks.service.ts";
+import type { ConnectionRequest } from "../middleware/connection.middleware.ts";
 
 export const tracksController = {
 

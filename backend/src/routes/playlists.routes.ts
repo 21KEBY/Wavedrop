@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { playlistsController } from "../controller/playlists.controller";
-import { requireConnection } from "../middleware/connection.middleware";
+import { playlistsController } from "../controller/playlists.controller.ts";
+import { requireConnection } from "../middleware/connection.middleware.ts";
 
 const router = Router();
 

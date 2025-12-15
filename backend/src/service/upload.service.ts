@@ -1,5 +1,5 @@
-import { blobService } from "../blob/blob.service.ts";
-import { uploadRepository } from "../reponsitory/upload.respository.ts";
+import { blobService } from "../blob/blob.service";
+import { uploadRepository } from "../reponsitory/upload.respository";
 
 export const uploadService = {
 

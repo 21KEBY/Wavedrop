@@ -1,15 +1,17 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
+  engineType = "library"
 }
 
-datasource db {
-  provider = "sqlite"
-}
-
-// PRODUCTION : Azure SQL Database (à utiliser en production)
+// DEVELOPMENT : SQLite (local seulement)
 // datasource db {
-//   provider = "sqlserver"
+//   provider = "sqlite"
 // }
+
+// PRODUCTION : Azure SQL Database
+datasource db {
+  provider = "sqlserver"
+}
 
 
 model User {
@@ -45,11 +47,11 @@ model Track {
 
   // Artiste associé
   artistId     Int?
-  artist       Artist? @relation(fields: [artistId], references: [id])
+  artist       Artist? @relation(fields: [artistId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   // Album associé
   albumId      Int?
-  album        Album?  @relation(fields: [albumId], references: [id])
+  album        Album?  @relation(fields: [albumId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   // Dans quelles playlists la musique apparait
   playlists    PlaylistTrack[]
@@ -105,8 +107,8 @@ model PlaylistTrack {
   playlistId Int
   trackId    Int
 
-  playlist   Playlist @relation(fields: [playlistId], references: [id])
-  track      Track    @relation(fields: [trackId], references: [id])
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  track      Track    @relation(fields: [trackId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   // clé primaire composite
   @@id([playlistId, trackId])

@@ -1,4 +1,4 @@
-import { playlistsRepository } from "../reponsitory/playlists.respository.ts";
+import { playlistsRepository } from "../reponsitory/playlists.respository";
 
 export const playlistsService = {
 

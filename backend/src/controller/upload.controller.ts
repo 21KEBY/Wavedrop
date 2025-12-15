@@ -1,6 +1,6 @@
 import type { Response } from "express";
-import { uploadService } from "../service/upload.service.ts";
-import type { ConnectionRequest } from "../middleware/connection.middleware.ts";
+import { uploadService } from "../service/upload.service";
+import type { ConnectionRequest } from "../middleware/connection.middleware";
 
 export const uploadController = {
 

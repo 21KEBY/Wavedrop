@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { connectionRepository } from "../reponsitory/connection.respository.ts";
+import { connectionRepository } from "../reponsitory/connection.respository";
 
 export const connectionService = {
   async login(email: string, password: string) {

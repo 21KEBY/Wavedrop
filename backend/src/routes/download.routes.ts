@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { downloadController } from "../controller/download.controller.ts";
+import { downloadController } from "../controller/download.controller";
 
 const router = Router();
 

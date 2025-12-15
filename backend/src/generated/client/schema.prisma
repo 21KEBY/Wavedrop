@@ -1,0 +1,107 @@
+generator client {
+  provider   = "prisma-client-js"
+  output     = "../src/generated/client"
+  engineType = "library"
+}
+
+// DEVELOPMENT : SQLite (local seulement)
+// datasource db {
+//   provider = "sqlite"
+// }
+
+// PRODUCTION : Azure SQL Database
+datasource db {
+  provider = "sqlserver"
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique // pour login
+  password String // mot de passe hashé
+  username String? // pseudo affiché
+
+  // Relations
+  uploadedTracks Track[] // musiques uploadées par l'utilisateur
+  playlists      Playlist[] // playlists créées
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Track {
+  id         Int     @id @default(autoincrement())
+  title      String // titre de la musique
+  artistName String? // nom de l'artiste (pour uploads utilisateurs)
+  duration   Int? // durée en secondes
+  coverUrl   String? // URL image stockée sur Azure Blob
+  audioUrl   String // URL du fichier audio sur Azure Blob
+
+  // Si TRUE = musique uploadée par un utilisateur
+  // Si FALSE = musique déjà existante sur la plateforme
+  isUserUpload Boolean @default(false)
+
+  // L'utilisateur qui a uploadé la musique
+  uploadedById Int?
+  uploadedBy   User? @relation(fields: [uploadedById], references: [id])
+
+  // Artiste associé
+  artistId Int?
+  artist   Artist? @relation(fields: [artistId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  // Album associé
+  albumId Int?
+  album   Album? @relation(fields: [albumId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  // Dans quelles playlists la musique apparait
+  playlists PlaylistTrack[]
+
+  createdAt DateTime @default(now())
+}
+
+model Artist {
+  id      Int     @id @default(autoincrement())
+  name    String // nom de l'artiste
+  picture String? // photo de l'artiste
+
+  tracks Track[] // musiques de l'artiste
+  albums Album[] // albums de l'artiste
+
+  createdAt DateTime @default(now())
+}
+
+model Album {
+  id       Int     @id @default(autoincrement())
+  title    String // nom de l'album
+  coverUrl String? // pochette
+  artistId Int
+
+  artist Artist  @relation(fields: [artistId], references: [id])
+  tracks Track[]
+
+  releaseYear Int? // année de sortie
+
+  createdAt DateTime @default(now())
+}
+
+model Playlist {
+  id   Int    @id @default(autoincrement())
+  name String // nom de la playlist (changé de title → name)
+
+  userId Int // propriétaire
+  user   User @relation(fields: [userId], references: [id])
+
+  tracks PlaylistTrack[] // liste des musiques
+
+  createdAt DateTime @default(now())
+}
+
+model PlaylistTrack {
+  playlistId Int
+  trackId    Int
+
+  playlist Playlist @relation(fields: [playlistId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  track    Track    @relation(fields: [trackId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  // clé primaire composite
+  @@id([playlistId, trackId])
+}

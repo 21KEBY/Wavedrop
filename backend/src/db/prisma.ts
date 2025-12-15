@@ -1,16 +1,42 @@
 import "dotenv/config";
-import { PrismaClient } from "@prisma/client";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { PrismaClient } from '@prisma/client';
+import { PrismaMssql } from '@prisma/adapter-mssql';
 
-// Création de l'adapter pour SQLite avec better-sqlite3
-const adapter = new PrismaBetterSqlite3({
-  url: process.env.DATABASE_URL!,
-});
+// Parser l'URL de connexion SQL Server
+const dbUrl = process.env.DATABASE_URL!;
+const serverMatch = dbUrl.match(/sqlserver:\/\/([^:;]+):(\d+)/);
+const dbMatch = dbUrl.match(/database=([^;]+)/);
+const userMatch = dbUrl.match(/user=([^;]+)/);
+const passwordMatch = dbUrl.match(/password=([^;]+)/);
 
-// Création d'une seule instance de Prisma avec l'adapter
+if (!serverMatch || !dbMatch || !userMatch || !passwordMatch) {
+  throw new Error(`Invalid DATABASE_URL format: ${dbUrl}`);
+}
+
+// Configuration pour l'adapter (format tedious)
+const config = {
+  server: serverMatch[1],
+  authentication: {
+    type: 'default' as const,
+    options: {
+      userName: userMatch[1],
+      password: passwordMatch[1],
+    },
+  },
+  options: {
+    database: dbMatch[1],
+    port: parseInt(serverMatch[2]),
+    encrypt: true,
+    trustServerCertificate: false,
+  },
+};
+
+// Créer l'adapter avec la config
+const adapter = new PrismaMssql(config);
+
 const prisma = new PrismaClient({
   adapter,
-  log: ['query', 'info', 'warn', 'error'],
+  log: process.env.NODE_ENV === 'development' ? ['query', 'info', 'warn', 'error'] : ['error'],
 });
 
 // Export par défaut ET nommé

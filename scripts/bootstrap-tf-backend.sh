@@ -2,9 +2,9 @@
 set -euo pipefail
 
 # Variables à personnaliser (doivent être globalement uniques pour storage)
-RG="rg-wave-drop"
+RG="rg-mini-spotify"
 LOCATION="switzerlandnorth"
-TF_STORAGE_ACCOUNT="stwavedrop"  # adapte si besoin
+TF_STORAGE_ACCOUNT="stwavedrop001"
 TF_CONTAINER="tfstate"
 
 echo "Création RG & Storage pour backend Terraform..."

@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { uploadController } from "../controller/upload.controller.ts";
-import { requireConnection } from "../middleware/connection.middleware.ts";
-import { uploadMiddleware } from "../middleware/upload.middleware.ts";
+import { uploadController } from "../controller/upload.controller";
+import { requireConnection } from "../middleware/connection.middleware";
+import { uploadMiddleware } from "../middleware/upload.middleware";
 
 const router = Router();
 

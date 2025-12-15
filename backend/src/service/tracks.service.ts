@@ -1,4 +1,4 @@
-import { tracksRepository } from "../reponsitory/tracks.respository.ts";
+import { tracksRepository } from "../reponsitory/tracks.respository";
 
 export const tracksService = {
 

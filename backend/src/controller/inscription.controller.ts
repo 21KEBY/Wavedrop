@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { authService } from "../service/inscription.service.ts"
-import type { ConnectionRequest } from "../middleware/connection.middleware.ts";
+import { authService } from "../service/inscription.service"
+import type { ConnectionRequest } from "../middleware/connection.middleware";
 
 export const authController = {
   async register(req: Request, res: Response) {

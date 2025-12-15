@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { streamingController } from "../controller/streaming.controller.ts";
+import { streamingController } from "../controller/streaming.controller";
 
 const router = Router();
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { authController } from "../controller/inscription.controller.ts";
-import { requireConnection } from "../middleware/connection.middleware.ts";
+import { authController } from "../controller/inscription.controller";
+import { requireConnection } from "../middleware/connection.middleware";
 
 const router = Router();
 

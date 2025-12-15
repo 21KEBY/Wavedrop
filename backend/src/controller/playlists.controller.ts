@@ -1,6 +1,6 @@
 import type { Response } from "express";
-import { playlistsService } from "../service/playlists.service.ts";
-import type { ConnectionRequest } from "../middleware/connection.middleware.ts";
+import { playlistsService } from "../service/playlists.service";
+import type { ConnectionRequest } from "../middleware/connection.middleware";
 
 export const playlistsController = {
 

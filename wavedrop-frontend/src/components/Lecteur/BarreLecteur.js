@@ -47,6 +47,7 @@ const BarreLecteur = () => {
   };
 
   const pourcentageProgression = duree > 0 ? (progression / duree) * 100 : 0;
+  const pourcentageVolume = volume * 100;
 
   return (
     <div className="barre-lecteur">
@@ -106,7 +107,7 @@ const BarreLecteur = () => {
               onChange={handleProgressionChange}
               className="slider-progression"
               style={{
-                background: `linear-gradient(to right, var(--wave-blue) ${pourcentageProgression}%, rgba(255,255,255,0.3) ${pourcentageProgression}%)`
+                '--progress': `${pourcentageProgression}%`
               }}
             />
             <span className="temps-total">{formatTemps(duree)}</span>
@@ -133,6 +134,9 @@ const BarreLecteur = () => {
               value={volume}
               onChange={handleVolumeChange}
               className="slider-volume"
+              style={{
+                '--volume': `${pourcentageVolume}%`
+              }}
             />
           </div>
         </div>

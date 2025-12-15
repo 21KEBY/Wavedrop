@@ -1,20 +1,21 @@
 .editeur-playlist {
-  background: white;
-  border-radius: 10px;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-subtle);
 }
 
 .editeur-vide {
   text-align: center;
-  padding: 3rem;
-  color: #999;
+  padding: var(--spacing-2xl);
+  color: var(--text-tertiary);
 }
 
 .editeur-header {
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #f0f0f0;
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .header-titre {
@@ -26,38 +27,38 @@
 
 .header-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .btn-renommer-playlist {
-  background: #5ab7db;
+  background: var(--accent-blue);
   color: white;
   border: none;
-  padding: 0.5rem;
-  border-radius: 8px;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s;
+  transition: all var(--transition-fast);
 }
 
 .btn-renommer-playlist:hover {
-  background: #3e92cc;
+  background: var(--accent-cyan);
   transform: scale(1.05);
 }
 
 .btn-supprimer-playlist {
-  background: #ff4757;
+  background: var(--error);
   color: white;
   border: none;
-  padding: 0.5rem;
-  border-radius: 8px;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s;
+  transition: all var(--transition-fast);
 }
 
 .btn-supprimer-playlist:hover {
@@ -67,74 +68,78 @@
 
 .editeur-header h2 {
   margin: 0;
-  color: #333;
+  color: var(--text-primary);
+  font-size: 1.75rem;
+  font-weight: 700;
 }
 
 .editeur-stats {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  color: #666;
+  gap: var(--spacing-lg);
+  color: var(--text-secondary);
 }
 
 .btn-jouer-tout {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--gradient-primary);
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: 20px;
   cursor: pointer;
   font-weight: 500;
-  transition: all 0.3s;
+  transition: all var(--transition-base);
 }
 
 .btn-jouer-tout:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
+  box-shadow: var(--shadow-lg);
 }
 
 .editeur-liste {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .liste-vide {
   text-align: center;
-  padding: 3rem;
-  color: #999;
+  padding: var(--spacing-2xl);
+  color: var(--text-tertiary);
 }
 
 .texte-aide {
   font-size: 0.9rem;
-  margin-top: 0.5rem;
+  margin-top: var(--spacing-sm);
 }
 
 .editeur-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 8px;
-  transition: all 0.3s;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
   position: relative;
+  border: 1px solid transparent;
 }
 
 .editeur-item:hover {
-  background: #f5f5f5;
+  background: var(--bg-tertiary);
+  border-color: var(--border-subtle);
 }
 
 .item-numero {
   width: 30px;
   text-align: center;
-  color: #999;
+  color: var(--text-tertiary);
   font-weight: 500;
 }
 
 .item-cover {
   width: 50px;
   height: 50px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -148,7 +153,7 @@
 .cover-placeholder {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--gradient-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,19 +165,19 @@
 }
 
 .item-info h4 {
-  margin: 0 0 0.25rem 0;
+  margin: 0 0 var(--spacing-xs) 0;
   font-size: 1rem;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .item-info p {
   margin: 0;
   font-size: 0.9rem;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .item-duree {
-  color: #999;
+  color: var(--text-tertiary);
   font-size: 0.9rem;
   min-width: 50px;
   text-align: center;
@@ -180,7 +185,7 @@
 
 .item-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .btn-jouer,
@@ -189,19 +194,22 @@
   border: none;
   font-size: 1.3rem;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: var(--spacing-sm);
   border-radius: 50%;
-  transition: all 0.3s;
+  transition: all var(--transition-base);
+  color: var(--text-secondary);
 }
 
 .btn-jouer:hover {
-  background: rgba(102, 126, 234, 0.1);
+  background: var(--bg-hover);
   transform: scale(1.1);
+  color: var(--accent-primary);
 }
 
 .btn-retirer:hover {
   background: rgba(255, 0, 0, 0.1);
   transform: scale(1.1);
+  color: var(--error);
 }
 
 /* Confirmation de suppression */
@@ -211,70 +219,77 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
+  backdrop-filter: blur(4px);
 }
 
 .confirmation-box {
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: var(--bg-secondary);
+  padding: var(--spacing-2xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-subtle);
   max-width: 400px;
+  width: 90%;
 }
 
 .confirmation-box h3 {
-  margin: 0 0 1rem 0;
-  color: #333;
+  margin: 0 0 var(--spacing-lg) 0;
+  color: var(--text-primary);
+  font-size: 1.5rem;
 }
 
 .confirmation-box p {
-  margin: 0 0 1.5rem 0;
-  color: #333;
+  margin: 0 0 var(--spacing-xl) 0;
+  color: var(--text-secondary);
 }
 
 .input-renommer {
   width: 100%;
-  padding: 0.75rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-md);
   font-size: 1rem;
-  margin-bottom: 1.5rem;
-  transition: border-color 0.3s;
+  margin-bottom: var(--spacing-xl);
+  transition: border-color var(--transition-base);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
 }
 
 .input-renommer:focus {
   outline: none;
-  border-color: #5ab7db;
+  border-color: var(--accent-primary);
+  background: var(--bg-secondary);
 }
 
 .confirmation-actions {
   display: flex;
-  gap: 1rem;
+  gap: var(--spacing-lg);
   justify-content: flex-end;
 }
 
 .btn-confirmer,
 .btn-annuler {
-  padding: 0.5rem 1.5rem;
+  padding: var(--spacing-sm) var(--spacing-xl);
   border: none;
-  border-radius: 5px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-weight: 500;
-  transition: all 0.3s;
+  transition: all var(--transition-base);
 }
 
 .btn-confirmer {
-  background: #dc3545;
+  background: var(--error);
   color: white;
 }
 
 .btn-annuler {
-  background: #6c757d;
-  color: white;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
 }
 
 .btn-confirmer:hover,

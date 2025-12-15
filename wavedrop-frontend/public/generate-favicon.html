@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur Favicon Wavedrop</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #121212;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            gap: 2rem;
+        }
+        canvas {
+            border: 2px solid #1DB954;
+            border-radius: 8px;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+        button {
+            background: #1DB954;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #1ed760;
+            transform: translateY(-2px);
+        }
+        .preview {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .preview-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .preview-item span {
+            font-size: 12px;
+            color: #b3b3b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎵 Favicon Wavedrop</h1>
+    
+    <div class="preview">
+        <div class="preview-item">
+            <canvas id="favicon16" width="16" height="16"></canvas>
+            <span>16x16</span>
+        </div>
+        <div class="preview-item">
+            <canvas id="favicon32" width="32" height="32"></canvas>
+            <span>32x32</span>
+        </div>
+        <div class="preview-item">
+            <canvas id="favicon48" width="48" height="48"></canvas>
+            <span>48x48</span>
+        </div>
+    </div>
+    
+    <button id="download">Télécharger favicon.ico</button>
+    
+    <p style="color: #666;">Instructions: Cliquez sur le bouton pour télécharger, puis remplacez le favicon.ico existant</p>
+
+    <script>
+        // Fonction pour dessiner les vagues Wavedrop
+        function drawWaves(ctx, size) {
+            const scale = size / 48;
+            ctx.clearRect(0, 0, size, size);
+            
+            // Fond sombre
+            ctx.fillStyle = '#121212';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Vagues vertes (style Spotify)
+            ctx.strokeStyle = '#1DB954';
+            ctx.lineWidth = Math.max(2 * scale, 1);
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            // Première vague
+            ctx.beginPath();
+            ctx.moveTo(size * 0.15, size * 0.5);
+            ctx.bezierCurveTo(
+                size * 0.25, size * 0.3,
+                size * 0.35, size * 0.7,
+                size * 0.45, size * 0.5
+            );
+            ctx.bezierCurveTo(
+                size * 0.55, size * 0.3,
+                size * 0.65, size * 0.7,
+                size * 0.85, size * 0.5
+            );
+            ctx.stroke();
+            
+            // Deuxième vague (plus claire)
+            ctx.strokeStyle = '#1ed760';
+            ctx.lineWidth = Math.max(1.5 * scale, 0.5);
+            ctx.beginPath();
+            ctx.moveTo(size * 0.15, size * 0.4);
+            ctx.bezierCurveTo(
+                size * 0.25, size * 0.2,
+                size * 0.35, size * 0.6,
+                size * 0.45, size * 0.4
+            );
+            ctx.bezierCurveTo(
+                size * 0.55, size * 0.2,
+                size * 0.65, size * 0.6,
+                size * 0.85, size * 0.4
+            );
+            ctx.stroke();
+            
+            // Troisième vague (encore plus claire)
+            ctx.strokeStyle = '#2ecc71';
+            ctx.lineWidth = Math.max(1 * scale, 0.5);
+            ctx.beginPath();
+            ctx.moveTo(size * 0.15, size * 0.6);
+            ctx.bezierCurveTo(
+                size * 0.25, size * 0.4,
+                size * 0.35, size * 0.8,
+                size * 0.45, size * 0.6
+            );
+            ctx.bezierCurveTo(
+                size * 0.55, size * 0.4,
+                size * 0.65, size * 0.8,
+                size * 0.85, size * 0.6
+            );
+            ctx.stroke();
+        }
+        
+        // Dessiner sur tous les canvas
+        const sizes = [16, 32, 48];
+        sizes.forEach(size => {
+            const canvas = document.getElementById(`favicon${size}`);
+            const ctx = canvas.getContext('2d');
+            drawWaves(ctx, size);
+        });
+        
+        // Fonction de téléchargement (conversion basique en PNG)
+        document.getElementById('download').addEventListener('click', () => {
+            const canvas = document.getElementById('favicon48');
+            const link = document.createElement('a');
+            link.download = 'favicon.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            alert('Favicon téléchargé en PNG!\n\nPour créer un vrai .ico:\n1. Allez sur https://favicon.io/favicon-converter/\n2. Uploadez le PNG téléchargé\n3. Téléchargez le .ico généré\n4. Remplacez public/favicon.ico');
+        });
+    </script>
+</body>
+</html>

@@ -46,7 +46,7 @@ const Accueil = () => {
             </span>
           </div>
 
-          <ListeMusiques musiques={musiques} chargement={chargement} />
+          <ListeMusiques musiques={musiques} chargement={chargement} recherche={recherche} />
         </div>
       </div>
     </div>

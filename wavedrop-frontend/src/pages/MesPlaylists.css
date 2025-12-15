@@ -52,87 +52,97 @@
 }
 
 .btn-nouvelle-playlist {
-  background: var(--gradient-wave);
-  color: white;
+  background: var(--accent-primary);
+  color: #000;
   border: none;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
-  transition: var(--transition-wave);
+  transition: var(--transition-base);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .btn-nouvelle-playlist:hover {
+  background: var(--accent-secondary);
   transform: scale(1.1);
-  box-shadow: var(--shadow-bubble);
+  box-shadow: var(--shadow-md);
 }
 
 /* Formulaire */
 .formulaire-playlist {
-  background: rgba(62, 146, 204, 0.05);
-  padding: 1rem;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  border: 2px solid rgba(62, 146, 204, 0.1);
+  background: var(--bg-elevated);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  border: 1px solid var(--border-subtle);
 }
 
 .formulaire-erreur {
-  background: rgba(251, 146, 60, 0.1);
-  color: #c2410c;
-  padding: 0.5rem;
-  border-radius: 8px;
+  background: rgba(226, 33, 52, 0.1);
+  color: var(--error);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
   font-size: 0.85rem;
-  margin-bottom: 0.5rem;
-  border-left: 4px solid var(--coral-accent);
+  margin-bottom: var(--spacing-sm);
+  border-left: 4px solid var(--error);
 }
 
 .input-nom-playlist {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid rgba(62, 146, 204, 0.2);
-  border-radius: 8px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
   font-size: 1rem;
   margin-bottom: 0.75rem;
-  transition: var(--transition-wave);
+  transition: var(--transition-base);
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .input-nom-playlist:focus {
   outline: none;
-  border-color: var(--wave-blue);
-  box-shadow: 0 0 0 4px rgba(62, 146, 204, 0.1);
+  border-color: var(--accent-primary);
+  background: var(--bg-elevated);
 }
 
 .formulaire-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .btn-creer,
 .btn-annuler-form {
   flex: 1;
-  padding: 0.5rem;
+  padding: var(--spacing-md);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-weight: 600;
-  transition: var(--transition-wave);
+  transition: var(--transition-base);
 }
 
 .btn-creer {
-  background: var(--wave-blue);
-  color: white;
+  background: var(--accent-primary);
+  color: #000;
+}
+
+.btn-creer:hover {
+  background: var(--accent-secondary);
+  transform: translateY(-2px);
 }
 
 .btn-annuler-form {
-  background: rgba(10, 36, 99, 0.1);
-  color: var(--ocean-deep);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-medium);
 }
 
-.btn-creer:hover,
 .btn-annuler-form:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
   transform: translateY(-2px);
 }
 

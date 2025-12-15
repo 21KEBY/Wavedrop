@@ -2,7 +2,7 @@ import React from 'react';
 import CarteMusicale from './CarteMusicale';
 import './ListeMusiques.css';
 
-const ListeMusiques = ({ musiques, chargement }) => {
+const ListeMusiques = ({ musiques, chargement, recherche }) => {
   if (chargement) {
     return (
       <div className="liste-chargement">
@@ -15,7 +15,14 @@ const ListeMusiques = ({ musiques, chargement }) => {
   if (!musiques || musiques.length === 0) {
     return (
       <div className="liste-vide">
-        <p>🎵 Aucune musique disponible pour le moment</p>
+        {recherche ? (
+          <>
+            <p>🔍 Aucun résultat trouvé pour "{recherche}"</p>
+            <p style={{fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '0.5rem'}}>Essayez avec d'autres mots-clés</p>
+          </>
+        ) : (
+          <p>🎵 Aucune musique disponible pour le moment</p>
+        )}
       </div>
     );
   }

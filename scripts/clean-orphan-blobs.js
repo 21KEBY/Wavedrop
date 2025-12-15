@@ -11,7 +11,7 @@ const blobServiceClient = BlobServiceClient.fromConnectionString(
 );
 
 async function cleanOrphanBlobs() {
-  console.log('🔍 Recherche des blobs orphelins...\n');
+  console.log('Recherche des blobs orphelins...\n');
 
   // 1. Récupérer toutes les URLs en DB
   const tracks = await prisma.track.findMany({
@@ -21,8 +21,8 @@ async function cleanOrphanBlobs() {
   const usedAudioUrls = new Set(tracks.map(t => t.audioUrl));
   const usedCoverUrls = new Set(tracks.filter(t => t.coverUrl).map(t => t.coverUrl));
 
-  console.log(`✅ ${usedAudioUrls.size} fichiers audio référencés en DB`);
-  console.log(`✅ ${usedCoverUrls.size} fichiers cover référencés en DB\n`);
+  console.log(`${usedAudioUrls.size} fichiers audio référencés en DB`);
+  console.log(`${usedCoverUrls.size} fichiers cover référencés en DB\n`);
 
   // 2. Nettoyer container 'audios'
   const audioContainer = blobServiceClient.getContainerClient('audios');
@@ -52,7 +52,7 @@ async function cleanOrphanBlobs() {
     }
   }
 
-  console.log(`\n✨ Nettoyage terminé:`);
+  console.log(`\nNettoyage terminé:`);
   console.log(`   - ${audioOrphans} fichiers audio supprimés`);
   console.log(`   - ${coverOrphans} fichiers cover supprimés`);
 

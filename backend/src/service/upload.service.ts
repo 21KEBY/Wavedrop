@@ -34,7 +34,7 @@ export const uploadService = {
       return track;
       
     } catch (error) {
-      // ❌ En cas d'échec, supprimer les blobs uploadés
+      // En cas d'échec, supprimer les blobs uploadés
       console.error('Échec upload, nettoyage des blobs...');
       
       if (audioUrl) {

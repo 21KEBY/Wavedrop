@@ -157,7 +157,7 @@ const EditeurPlaylist = ({ playlist, onPlaylistSupprimee, onPlaylistModifiee }) 
                 {musique.urlCover ? (
                   <img src={musique.urlCover} alt={musique.titre} />
                 ) : (
-                  <div className="cover-placeholder">🎵</div>
+                  <div className="cover-placeholder">♪</div>
                 )}
               </div>
 
@@ -183,7 +183,7 @@ const EditeurPlaylist = ({ playlist, onPlaylistSupprimee, onPlaylistModifiee }) 
                   className="btn-retirer"
                   title="Retirer de la playlist"
                 >
-                  🗑️
+                  ×
                 </button>
               </div>
 

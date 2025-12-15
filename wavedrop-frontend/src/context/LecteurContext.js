@@ -7,7 +7,7 @@ let audioInstance = null;
 const getAudioInstance = () => {
   if (!audioInstance) {
     audioInstance = new Audio();
-    console.log('🎵 Audio singleton créé');
+    console.log('Audio singleton créé');
   }
   return audioInstance;
 };
@@ -100,7 +100,7 @@ export const LecteurProvider = ({ children }) => {
       setMusiqueActuelle(musique);
 
       if (musique?.urlAudio && audio.src !== musique.urlAudio) {
-        console.log('🎵 Chargement:', musique.titre);
+        console.log('Chargement:', musique.titre);
         audio.src = musique.urlAudio;
         audio.volume = volume;
         audio.play().catch((e) => console.error('Erreur de lecture:', e));

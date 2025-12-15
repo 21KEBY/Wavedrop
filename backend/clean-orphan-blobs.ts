@@ -6,7 +6,7 @@ const blobServiceClient = BlobServiceClient.fromConnectionString(
 );
 
 async function cleanOrphanBlobs() {
-  console.log('🔍 Recherche des blobs orphelins...\n');
+  console.log('Recherche des blobs orphelins...\n');
 
   // 1. Récupérer toutes les URLs en DB
   const tracks = await prisma.track.findMany({
@@ -16,8 +16,8 @@ async function cleanOrphanBlobs() {
   const usedAudioUrls = new Set(tracks.map(t => t.audioUrl));
   const usedCoverUrls = new Set(tracks.filter(t => t.coverUrl).map(t => t.coverUrl));
 
-  console.log(`✅ ${usedAudioUrls.size} fichiers audio référencés en DB`);
-  console.log(`✅ ${usedCoverUrls.size} fichiers cover référencés en DB\n`);
+  console.log(`${usedAudioUrls.size} fichiers audio référencés en DB`);
+  console.log(`${usedCoverUrls.size} fichiers cover référencés en DB\n`);
 
   // 2. Nettoyer container 'audios'
   const audioContainer = blobServiceClient.getContainerClient('audios');
@@ -27,7 +27,7 @@ async function cleanOrphanBlobs() {
     const blobUrl = `https://${process.env.STORAGE_ACCOUNT_NAME}.blob.core.windows.net/audios/${blob.name}`;
     
     if (!usedAudioUrls.has(blobUrl)) {
-      console.log(`🗑️  Suppression audio orphelin: ${blob.name}`);
+      console.log(`Suppression audio orphelin: ${blob.name}`);
       await audioContainer.deleteBlob(blob.name);
       audioOrphans++;
     }
@@ -41,13 +41,13 @@ async function cleanOrphanBlobs() {
     const blobUrl = `https://${process.env.STORAGE_ACCOUNT_NAME}.blob.core.windows.net/covers/${blob.name}`;
     
     if (!usedCoverUrls.has(blobUrl)) {
-      console.log(`🗑️  Suppression cover orphelin: ${blob.name}`);
+      console.log(`Suppression cover orphelin: ${blob.name}`);
       await coverContainer.deleteBlob(blob.name);
       coverOrphans++;
     }
   }
 
-  console.log(`\n✨ Nettoyage terminé:`);
+  console.log(`\nNettoyage terminé:`);
   console.log(`   - ${audioOrphans} fichiers audio supprimés`);
   console.log(`   - ${coverOrphans} fichiers cover supprimés`);
 

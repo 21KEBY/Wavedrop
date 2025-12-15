@@ -17,11 +17,11 @@ const ListeMusiques = ({ musiques, chargement, recherche }) => {
       <div className="liste-vide">
         {recherche ? (
           <>
-            <p>🔍 Aucun résultat trouvé pour "{recherche}"</p>
+            <p>Aucun résultat trouvé pour "{recherche}"</p>
             <p style={{fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '0.5rem'}}>Essayez avec d'autres mots-clés</p>
           </>
         ) : (
-          <p>🎵 Aucune musique disponible pour le moment</p>
+          <p>Aucune musique disponible pour le moment</p>
         )}
       </div>
     );

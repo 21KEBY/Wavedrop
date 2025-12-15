@@ -24,7 +24,7 @@ export const sasService = {
     const startsOn = new Date();
     const expiresOn = new Date(Date.now() + 15 * 60 * 1000); // 15 min
 
-    // 🔑 Clé de délégation utilisateur (Managed Identity)
+    // Clé de délégation utilisateur (Managed Identity)
     const userDelegationKey = await blobServiceClient.getUserDelegationKey(
       startsOn,
       expiresOn

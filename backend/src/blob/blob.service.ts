@@ -51,9 +51,9 @@ export const blobService = {
       const containerClient = blobServiceClient.getContainerClient(containerName);
       await containerClient.deleteBlob(blobName);
       
-      console.log(`✅ Blob supprimé: ${blobName}`);
+      console.log(`Blob supprimé: ${blobName}`);
     } catch (error) {
-      console.error(`❌ Erreur suppression blob:`, error);
+      console.error(`Erreur suppression blob:`, error);
     }
   },
 };
